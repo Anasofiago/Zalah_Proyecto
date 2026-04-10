@@ -1,0 +1,155 @@
+CREATE DATABASE RegistroZa_DB;
+GO
+
+CREATE TABLE Gerente (
+    id              VARCHAR(20)     NOT NULL PRIMARY KEY,
+    nombre          VARCHAR(100)    NOT NULL,
+    telefono        VARCHAR(20),
+    salario         DECIMAL(10,2)
+);
+GO
+
+INSERT INTO Gerente (id, nombre, telefono, salario) VALUES
+    ('G1', 'Angel Cordero', '5512345678', 25000.00),
+    ('G2', 'Abril Navarrete', '5598765432', 25000.00),
+    ('G3', 'Ana González', '5519283746', 25000.00);
+
+CREATE TABLE IdGerente (
+    id              VARCHAR(20)     NOT NULL PRIMARY KEY,
+    id_gerente      VARCHAR(20)     NOT NULL UNIQUE,
+    FOREIGN KEY (id_gerente) REFERENCES Gerente(id)
+    ON DELETE CASCADE
+);
+GO
+
+INSERT INTO IdGerente (id, id_gerente) VALUES
+    ('Idg1', 'G1'),
+    ('Idg2', 'G2'),
+    ('Idg3', 'G3');
+
+CREATE TABLE Clientes (
+    id              VARCHAR(20)     NOT NULL PRIMARY KEY,
+    nombre          VARCHAR(100)    NOT NULL,
+    membresia       VARCHAR(50),
+    telefono        VARCHAR(20),
+    direccion       VARCHAR(200),
+    id_compra       VARCHAR(20)
+);
+GO
+
+INSERT INTO Clientes (id, nombre, membresia, telefono, direccion) VALUES
+    ('C1', 'Sofia Torres', 'Plata', '5518293746', 'Av. Reforma 123, CDMX'),
+    ('C2', 'Gael Sánchez', 'Oro', '5546372819', 'Calle Insurgentes 45, CDMX'),
+    ('C3', 'Maria Gomez', 'Bronce', '5526272779', 'Av. Amsterdam 54, CDMX'),
+    ('C4', 'Jesus Gonzalez', 'Oro', '5511223344', 'Calle Francisco I. Madero 67, CDMX'),
+    ('C5', 'Valentina Lara', 'Oro', '5599887766', 'Av. Alvaro Obregon 98, CDMX'),
+    ('C6', 'Alejandro Vazquez', 'Plata', '5533662277', 'Calle Francisco Sosa 28, CDMX'),
+    ('C7', 'Ximena Ortiz', 'Bronce', '5564738291', 'Calle Regina 35, CDMX'),
+    ('C8', 'Alexander Ramirez', 'Plata', '5577723839', 'Av. Presidente Masaryk 58, CDMX'),
+    ('C9', 'Regina Martinez', 'Oro', '5533334444', 'Calle Colima 60, CDMX'),
+    ('C10', 'Daniel Garcia', 'Plata',   '5511112222', 'Av. Juarez 140, CDMX');
+
+CREATE TABLE IdClientes (
+    id              VARCHAR(20)     NOT NULL PRIMARY KEY,
+    id_clientes     VARCHAR(20)     NOT NULL UNIQUE,
+    FOREIGN KEY (id_clientes) REFERENCES Clientes(id)
+    ON DELETE CASCADE
+);
+GO
+
+INSERT INTO IdClientes (id, id_clientes) VALUES
+    ('Idc1', 'C1'),
+    ('Idc2', 'C2'),
+    ('Idc3', 'C3'),
+    ('Idc4', 'C4'),
+    ('Idc5', 'C5'),
+    ('Idc6', 'C6'),
+    ('Idc7', 'C7'),
+    ('Idc8', 'C8'),
+    ('Idc9', 'C9'),
+    ('Idc10', 'C10');
+
+CREATE TABLE Productos (
+    id              VARCHAR(20)     NOT NULL PRIMARY KEY,
+    nombre          VARCHAR(100)    NOT NULL,
+    precio          DECIMAL(10,2)   NOT NULL,
+    stock           INT             DEFAULT 0
+);
+GO
+
+INSERT INTO Productos (id, nombre, precio, stock) VALUES
+    ('P1', 'Blusa de manga larga blanca para dama', 300.00, 10),
+    ('P2', 'Camisa negra manga corta para caballero', 300.00, 8),
+    ('P3', 'Pantalón recto azul marino para dama', 350.00, 0),
+    ('P4', 'Pantalón recto verde militar para caballero', 350.00, 40),
+    ('P5', 'Falda larga tableada blanca para dama', 320.00, 3),
+    ('P6', 'Short baggy negro para caballero', 220.00, 25);
+
+CREATE TABLE IdProductos (
+    id              VARCHAR(20)     NOT NULL PRIMARY KEY,
+    id_productos    VARCHAR(20)     NOT NULL UNIQUE,
+    FOREIGN KEY (id_productos) REFERENCES Productos(id)
+    ON DELETE CASCADE
+);
+GO
+
+INSERT INTO IdProductos (id, id_productos) VALUES
+    ('Idp1', 'P1'),
+    ('Idp2', 'P2'),
+    ('Idp3', 'P3'),
+    ('Idp4', 'P4'),
+    ('Idp5', 'P5'),
+    ('Ipd6', 'P6');
+
+CREATE TABLE Compra (
+    id              VARCHAR(20)     NOT NULL PRIMARY KEY,
+    cantidad        DECIMAL(10,2)   NOT NULL,
+    id_productos    VARCHAR(20)     NOT NULL,
+    total           DECIMAL(10,2)   NOT NULL,
+    metodo_pago     VARCHAR(50),
+    id_clientes     VARCHAR(20)     NOT NULL,
+    id_gerente      VARCHAR(20)     NOT NULL,
+    fecha           DATETIME        DEFAULT GETDATE(),
+    FOREIGN KEY (id_productos) REFERENCES Productos(id),
+    FOREIGN KEY (id_clientes) REFERENCES Clientes(id),
+    FOREIGN KEY (id_gerente) REFERENCES Gerente(id)
+);
+GO
+
+INSERT INTO Compra (id, cantidad, id_productos, total, metodo_pago, id_clientes, id_gerente) VALUES
+    ('CO1', 3, 'P1', 900.00, 'Tarjeta de crédito', 'C9', 'G1'),
+    ('CO2', 1, 'P2', 300.00, 'Efectivo', 'C5', 'G2'),
+    ('CO3', 5, 'P3', 1750.00, 'Transferencia', 'C2', 'G3'),
+    ('CO4', 2, 'P6', 440.00, 'Tarjeta de débito', 'C10', 'G1');
+
+CREATE TABLE IdCompra (
+    id              VARCHAR(20)     NOT NULL PRIMARY KEY,
+    id_compra       VARCHAR(20)     NOT NULL UNIQUE,
+    FOREIGN KEY (id_compra) REFERENCES Compra(id)
+    ON DELETE CASCADE
+);
+GO
+
+INSERT INTO IdCompra (id, id_compra) VALUES
+    ('Idco1', 'CO1'),
+    ('Idco2', 'CO2'),
+    ('Idco3', 'CO3'),
+    ('Idco4', 'CO4');
+
+CREATE TABLE Zalah (
+    id              VARCHAR(20)     NOT NULL PRIMARY KEY,
+    nombre          VARCHAR(100)    NOT NULL,
+    direccion       VARCHAR(200),
+    id_clientes     VARCHAR(20),
+    id_gerente      VARCHAR(20),
+    id_productos    VARCHAR(20),
+    horario         VARCHAR(30),
+    FOREIGN KEY (id_gerente)  REFERENCES IdGerente(id),
+    FOREIGN KEY (id_clientes) REFERENCES IdClientes(id),
+    FOREIGN KEY (id_productos) REFERENCES IdProductos(id)
+);
+GO
+
+INSERT INTO Zalah (id, nombre, direccion, id_clientes, id_gerente, id_productos, horario) VALUES
+    ('Zal1', 'Zalah', 'Av. Presidente Masaryk 84, Polanco V Seccion, CDMX','Idc4', 'Idg2', 
+    'Idp3', '09:00:00 a 18:00:00');
