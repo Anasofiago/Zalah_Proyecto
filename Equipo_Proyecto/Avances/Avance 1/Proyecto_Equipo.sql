@@ -1,5 +1,7 @@
-CREATE DATABASE RegistroZa_DB;
-GO
+CREATE DATABASE ZalahDataB;
+
+USE ZalahDataB;
+
 
 CREATE TABLE Gerente (
     id              VARCHAR(20)     NOT NULL PRIMARY KEY,
@@ -7,7 +9,6 @@ CREATE TABLE Gerente (
     telefono        VARCHAR(20),
     salario         DECIMAL(10,2)
 );
-GO
 
 INSERT INTO Gerente (id, nombre, telefono, salario) VALUES
     ('G1', 'Angel Cordero', '5512345678', 25000.00),
@@ -38,16 +39,16 @@ CREATE TABLE Clientes (
 GO
 
 INSERT INTO Clientes (id, nombre, membresia, telefono, direccion) VALUES
-    ('C1', 'Sofia Torres', 'Plata', '5518293746', 'Av. Reforma 123, CDMX'),
-    ('C2', 'Gael Sánchez', 'Oro', '5546372819', 'Calle Insurgentes 45, CDMX'),
-    ('C3', 'Maria Gomez', 'Bronce', '5526272779', 'Av. Amsterdam 54, CDMX'),
-    ('C4', 'Jesus Gonzalez', 'Oro', '5511223344', 'Calle Francisco I. Madero 67, CDMX'),
-    ('C5', 'Valentina Lara', 'Oro', '5599887766', 'Av. Alvaro Obregon 98, CDMX'),
-    ('C6', 'Alejandro Vazquez', 'Plata', '5533662277', 'Calle Francisco Sosa 28, CDMX'),
-    ('C7', 'Ximena Ortiz', 'Bronce', '5564738291', 'Calle Regina 35, CDMX'),
-    ('C8', 'Alexander Ramirez', 'Plata', '5577723839', 'Av. Presidente Masaryk 58, CDMX'),
-    ('C9', 'Regina Martinez', 'Oro', '5533334444', 'Calle Colima 60, CDMX'),
-    ('C10', 'Daniel Garcia', 'Plata',   '5511112222', 'Av. Juarez 140, CDMX');
+    ('C1', 'Sofia Torres', 'Silver', '5518293746', 'Av. Reforma 123, CDMX'),
+    ('C2', 'Gael Sánchez', 'Gold', '5546372819', 'Calle Insurgentes 45, CDMX'),
+    ('C3', 'Maria Gomez', 'Bronze', '5526272779', 'Av. Amsterdam 54, CDMX'),
+    ('C4', 'Jesus Gonzalez', 'Gold', '5511223344', 'Calle Francisco I. Madero 67, CDMX'),
+    ('C5', 'Valentina Lara', 'Gold', '5599887766', 'Av. Alvaro Obregon 98, CDMX'),
+    ('C6', 'Alejandro Vazquez', 'Silver', '5533662277', 'Calle Francisco Sosa 28, CDMX'),
+    ('C7', 'Ximena Ortiz', 'Bronze', '5564738291', 'Calle Regina 35, CDMX'),
+    ('C8', 'Alexander Ramirez', 'Silver', '5577723839', 'Av. Presidente Masaryk 58, CDMX'),
+    ('C9', 'Regina Martinez', 'Gold', '5533334444', 'Calle Colima 60, CDMX'),
+    ('C10', 'Daniel Garcia', 'Silver',   '5511112222', 'Av. Juarez 140, CDMX');
 
 CREATE TABLE IdClientes (
     id              VARCHAR(20)     NOT NULL PRIMARY KEY,
