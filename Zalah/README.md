@@ -1,4 +1,5 @@
-# Equipo_Proyecto
+# Proyecto_Zalah
+
 # Registro de clientes y órdenes
 
 ## Integrantes
