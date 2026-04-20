@@ -1,6 +1,6 @@
 # Proyecto_Zalah
 
-# Registro de clientes y órdenes
+# Registro de clientes
 
 ## Integrantes
 - Navarrete Vázquez Itziar Abril
